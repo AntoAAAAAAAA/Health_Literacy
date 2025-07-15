@@ -145,4 +145,21 @@ T = {
         "en": "Please enter blood glucose (mg/dL):",
         "es": "Por favor, introduce la glucosa en sangre (mg/dL):",
     },
+    # Waist Circumference section 
+    "Waist Circumference": {        
+        "en": "Waist Circumference",
+        "es": "Circunferencia de la cintura",
+    },
+    "Choose your Units:": {         
+        "en": "Choose your Units:",
+        "es": "Elige tus unidades:",
+    },
+    "Waist (in)": {                 
+        "en": "Waist (in)",
+        "es": "Cintura (pulg)",
+    },
+    "Waist (cm)": {                 
+        "en": "Waist (cm)",
+        "es": "Cintura (cm)",
+    },
 }

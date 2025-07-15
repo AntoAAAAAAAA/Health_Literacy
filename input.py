@@ -18,12 +18,12 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ── Page header ──────────────────────────────────────────────────────────────
+# --- Page header ---------------------------------------------------
 st.title(_("input_page_title"))
 st.text(_("input_page_intro"))
 st.divider()
 
-# ── Load saved data ──────────────────────────────────────────────────────────
+# --- Load saved data ---------------------------------------------------
 results = get_results()
 prev_wt   = results.get("weight")
 prev_ht   = results.get("height")
@@ -32,8 +32,10 @@ htft      = results.get("height_ft")
 htinch    = results.get("height_inch")
 prev_sys  = results.get("sys")
 prev_dias = results.get("dias")
+prev_waistinch = results.get('waistinch')
+prev_waistcm = results.get('waistcm')
 
-# ── Converters ───────────────────────────────────────────────────────────────
+# --- Converters ---------------------------------------------------
 col1, col2 = st.columns(2, border=True)
 
 # • Weight (lb → kg)
@@ -69,7 +71,8 @@ if col2.button(_("convert_button"), key="2"):
         {"height_ft": ft, "height_inch": inch}
     )
 st.divider()
-# ── BMI ──────────────────────────────────────────────────────────────────────
+
+# --- BMI ------------------------------------------------------
 with st.expander(_("bmi_expander_label")):
     weight = st.number_input(
         _("weight_input_kg_label"),
@@ -98,7 +101,7 @@ with st.expander(_("bmi_expander_label")):
 st.text(" ")
 st.text(" ")
 
-# ── Blood Pressure ──────────────────────────────────────────────────────────
+# --- Blood Pressure ---------------------------------
 with st.expander(_("blood_pressure_expander_label")):
     left, middle, right = st.columns(3, vertical_alignment="top")
     systole = left.number_input(
@@ -123,9 +126,47 @@ with st.expander(_("blood_pressure_expander_label")):
 st.text(" ")
 st.text(" ")
 
-# ── Blood Glucose ───────────────────────────────────────────────────────────
+# -- Blood Glucose --------------------------------------------------------
 with st.expander(_("blood_glucose_expander_label")):
     bg = st.number_input(_("blood_glucose_input_label"))
     if st.button(_("save_button"), key="6"):
         st.session_state["results"].update({"bg": bg})
         st.toast(_("saved_toast"))
+st.text(' ')
+st.text(' ')
+
+# -- Waist Circumference --------------------------------------------------------
+with st.expander(_("Waist Circumference")):
+    col1, col2 = st.columns(2)
+
+    unit_pref = st.session_state.get('unit_pref', 'in')
+    units = col1.radio(
+        _("Choose your Units:"),
+        ['in', 'cm'],                     
+        horizontal=True)
+    st.session_state['unit_pref'] = units
+
+    if units == 'in':
+        waistinch = col2.slider(_("Waist (in)"), 20.0, 60.0,
+                            value= prev_waistinch if prev_waistinch is not None else 30.0, 
+                            step=0.25)
+    else:
+        waistcm = col2.slider(_("Waist (cm)"), 50.0, 150.0,
+                            value= prev_waistcm if prev_waistcm is not None else 80.0, 
+                            step= 0.5)
+
+    if col2.button(_("save_button")):
+        if units == 'in':
+            st.session_state['results'].update({"waistinch": waistinch})
+            st.session_state['results'].update({'final_waist': f'{waistinch} in'})
+        else:
+            st.session_state['results'].update({'waistcm': waistcm})
+            st.session_state['results'].update({'final_waist': f'{waistcm} cm'})
+        st.toast(_("saved_toast"))
+
+# -- See Results ----------------------------------------------------------------------
+st.divider()
+col1, col2, col3 = st.columns(3, vertical_alignment='bottom')
+if col2.button('Click Here to Interpret Your Numbers!'):
+    st.switch_page('results.py')
+col2.caption('Note: Make sure you saved all your results!')
