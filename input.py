@@ -34,6 +34,8 @@ prev_sys  = results.get("sys")
 prev_dias = results.get("dias")
 prev_waistinch = results.get('waistinch')
 prev_waistcm = results.get('waistcm')
+prev_waist_ht_in = results.get('waist_ht_in')
+prev_waist_ht_cm = results.get('waist_ht_cm')
 
 # --- Converters ---------------------------------------------------
 col1, col2 = st.columns(2, border=True)
@@ -143,9 +145,9 @@ with st.expander(_("Waist Circumference")):
     units = col1.radio(
         _("Choose your Units:"),
         ['in', 'cm'],                     
-        horizontal=True)
-    st.session_state['unit_pref'] = units
-
+        horizontal=True,
+        key='unit_pref'
+        )
     if units == 'in':
         waistinch = col2.slider(_("Waist (in)"), 20.0, 60.0,
                             value= prev_waistinch if prev_waistinch is not None else 30.0, 
@@ -155,6 +157,29 @@ with st.expander(_("Waist Circumference")):
                             value= prev_waistcm if prev_waistcm is not None else 80.0, 
                             step= 0.5)
 
+    
+
+    col1, col2 = st.columns(2)
+    if units == 'in':
+        waist_ht_in = col2.number_input('Height in inches:', 
+                                        value=prev_waist_ht_in if prev_waist_ht_in is not None else 0.0,
+                                        step=0.5)
+        st.session_state['results'].update({'waist_ht_in': waist_ht_in})
+    else:
+        waist_ht_cm = col2.number_input('Height in cm:', 
+                                        value=prev_waist_ht_cm if prev_waist_ht_cm is not None else 0.0,
+                                        step=0.25)
+        st.session_state['results'].update({'waist_ht_cm': waist_ht_cm})
+
+    # Waist Ratio calculation logic 
+    waist = waistinch if units == 'in' else waistcm
+    height = waist_ht_in if units == 'in' else waist_ht_cm
+    waist_ratio = waist/height if height else None
+
+    # Buttons
+    if col2.button('Click Here to Calculate Ratio'):
+        st.info(round(waist_ratio, 2))
+
     if col2.button(_("save_button")):
         if units == 'in':
             st.session_state['results'].update({"waistinch": waistinch})
@@ -162,6 +187,8 @@ with st.expander(_("Waist Circumference")):
         else:
             st.session_state['results'].update({'waistcm': waistcm})
             st.session_state['results'].update({'final_waist': f'{waistcm} cm'})
+        if waist_ratio:
+            st.session_state['results'].update({'waist_ratio': waist_ratio})
         st.toast(_("saved_toast"))
 
 # -- See Results ----------------------------------------------------------------------
@@ -169,4 +196,4 @@ st.divider()
 col1, col2, col3 = st.columns(3, vertical_alignment='bottom')
 if col2.button('Click Here to Interpret Your Numbers!'):
     st.switch_page('results.py')
-col2.caption('Note: Make sure you saved all your results!')
+col2.caption('Note: Make sure you saved all your numbers!')

@@ -145,7 +145,7 @@ T = {
         "en": "Please enter blood glucose (mg/dL):",
         "es": "Por favor, introduce la glucosa en sangre (mg/dL):",
     },
-    # Waist Circumference section 
+    # Waist to Height Ratio section 
     "Waist Circumference": {        
         "en": "Waist Circumference",
         "es": "Circunferencia de la cintura",
