@@ -1,7 +1,8 @@
 import streamlit as st
 from functions import ensure_defaults
 
-st.set_page_config(page_title='Health Literacy App')
+st.set_page_config(page_title='Health Literacy App',
+                   layout='wide')
 
 ensure_defaults()
 LANG_OPTS = {'English': 'en', 'Spanish': 'es'}

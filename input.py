@@ -32,11 +32,15 @@ htft      = results.get("height_ft")
 htinch    = results.get("height_inch")
 prev_sys  = results.get("sys")
 prev_dias = results.get("dias")
+prev_bg = results.get('bg')
 prev_waistinch = results.get('waistinch')
 prev_waistcm = results.get('waistcm')
 prev_waist_ht_in = results.get('waist_ht_in')
 prev_waist_ht_cm = results.get('waist_ht_cm')
 
+st.text('Before you begin, please take the time to convert your height and weight metrics. We highly recommend this' \
+'since most health metric calculations are done using the metric system instead of the commonly used imperial system in the ' \
+'United States. As such, we would like to help you by providing converters below that will do the hard work for you!')
 # --- Converters ---------------------------------------------------
 col1, col2 = st.columns(2, border=True)
 
@@ -96,9 +100,9 @@ with st.expander(_("bmi_expander_label")):
         )
         st.success(_("bmi_result_message").format(bmi=f"{bmi:.1f}"))
 
-    if "bmi" in st.session_state["results"]:
-        if st.button(_("interpret_results_button"), key="4"):
-            st.switch_page("results.py")
+    # if "bmi" in st.session_state["results"]:
+    #     if st.button(_("interpret_results_button"), key="4"):
+    #         st.switch_page("results.py")
 
 st.text(" ")
 st.text(" ")
@@ -121,8 +125,7 @@ with st.expander(_("blood_pressure_expander_label")):
 
     if st.button(_("save_button"), key="5"):
         st.session_state["results"].update(
-            {"sys": systole, "dias": diastole, "bp": bp}
-        )
+            {"sys": systole, "dias": diastole, "bp": bp})
         st.toast(_("saved_toast"))
 
 st.text(" ")
@@ -130,7 +133,8 @@ st.text(" ")
 
 # -- Blood Glucose --------------------------------------------------------
 with st.expander(_("blood_glucose_expander_label")):
-    bg = st.number_input(_("blood_glucose_input_label"))
+    bg = st.number_input(_("blood_glucose_input_label"), 
+                         value=prev_bg if prev_bg is not None else 0.0)
     if st.button(_("save_button"), key="6"):
         st.session_state["results"].update({"bg": bg})
         st.toast(_("saved_toast"))
