@@ -190,7 +190,7 @@ with st.expander(_("Waist Circumference")):
             st.session_state['results'].update({'waistcm': waistcm})
             st.session_state['results'].update({'final_waist': f'{waistcm} cm'})
         if waist_ratio:
-            st.session_state['results'].update({'waist_ratio': waist_ratio})
+            st.session_state['results'].update({'waist_ratio': round(waist_ratio,2)})
         st.toast(_("saved_toast"))
 
 # -- See Results ----------------------------------------------------------------------

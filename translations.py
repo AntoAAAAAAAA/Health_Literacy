@@ -246,7 +246,7 @@ T = {
         "en": "First off, why is having a low BMI possibly dangerous? Well it increases your chances of:",
         "es": "Primero, ¿por qué puede ser peligroso tener un IMC bajo? Aumenta tus probabilidades de:",
     },
-    "uw_risk_list": {   # bullet block kept as-is
+    "uw_risk_list": {  
         "en": (
             "- Osteoporosis\n"
             "- More sick frequently\n"
@@ -1081,6 +1081,73 @@ T = {
             "El paso más importante es acudir al médico y elaborar un plan que se adapte a tu vida. Los planes personalizados son la base de un "
             "tratamiento eficaz."
         ),
+    },
+    
+    # -- Waist-to-Height Ratio ------------------------------------------------
+    "wr_subheader": {
+        "en": "Your waist ratio is {wr}",
+        "es": "Tu relación cintura-altura es {wr}",
+    },
+    "wr_healthy_range": {
+        "en": "A healthy range for waist-to-height ratio is between 0.4 and 0.49",
+        "es": "Un rango saludable para la relación cintura-altura está entre 0.4 y 0.49",
+    },
+
+    # status lines
+    "wr_low_msg":       {"en": "Your waist-to-height ratio shows that you might be UNDERWEIGHT",       "es": "Tu relación cintura-altura indica que podrías estar BAJO PESO"},
+    "wr_normal_msg":    {"en": "Your waist-to-height ratio shows that you are in a NORMAL range",     "es": "Tu relación cintura-altura está en un rango NORMAL"},
+    "wr_increased_msg": {"en": "Your waist-to-height ratio shows that you are at an INCREASED RISK",  "es": "Tu relación cintura-altura indica un RIESGO AUMENTADO"},
+    "wr_high_msg":      {"en": "Your waist-to-height ratio shows that you are at a HIGH risk",        "es": "Tu relación cintura-altura indica un RIESGO ALTO"},
+
+    # UNDERWEIGHT branch
+    "wr_low_para1": {
+        "en": "Don't fear. Just like all health metrics, this ratio alone doesn't mean you are necessarily underweight. "
+            "But it is an overall good predictor. Combined with other factors (ex. weight, BMI, height), you should consider "
+            "if you may be underweight. Consult a healthcare professional and see if you want to create a plan to add some weight.",
+        "es": "No te asustes. Igual que otros indicadores, este ratio por sí solo no significa necesariamente que tengas bajo peso. "
+            "Pero es un buen predictor general. Junto con otros factores (peso, IMC, estatura), plantéate si podrías estar bajo peso. "
+            "Consulta a un profesional de salud y decide si quieres elaborar un plan para ganar peso.",
+    },
+    "wr_under_risk_intro": {
+        "en": "Being underweight can be dangerous. It can increase your risk of having:",
+        "es": "Tener bajo peso puede ser peligroso. Puede aumentar el riesgo de:",
+    },
+    "wr_under_causes_intro": {
+        "en": "Some common causes of low weight include:",
+        "es": "Algunas causas comunes de bajo peso incluyen:",
+    },
+    "wr_under_actions_intro": {
+        "en": "Thankfully however, there are still plenty of great ways to increase your weight. Some include:",
+        "es": "Afortunadamente, hay muchas formas de aumentar tu peso. Algunas son:",
+    },
+    "wr_under_close": {
+        "en": "Being possibly underweight is not the end of the world. With help from a healthcare professional, bringing your "
+            "weight up can increase your quality of life and improve your health.",
+        "es": "Posiblemente estar bajo peso no es el fin del mundo. Con ayuda de un profesional de salud, subir de peso puede mejorar "
+            "tu calidad de vida y tu salud.",
+    },
+
+    # INCREASED / HIGH-RISK branches (shared text)
+    "wr_over_para1": {
+        "en": "Waist-to-height ratio helps estimate the amount of excess stomach fat you may be carrying around. "
+            "This type of fat has been connected to long-term health consequences. Some of these issues include:",
+        "es": "La relación cintura-altura ayuda a estimar la grasa abdominal en exceso que puedes tener. "
+            "Este tipo de grasa se ha relacionado con consecuencias de salud a largo plazo. Algunos problemas incluyen:",
+    },
+    "wr_over_causes_intro": {
+        "en": "Thankfully, this is solvable. First, understanding the issue is important. Some common causes are:",
+        "es": "Por suerte, esto tiene solución. Lo primero es entender el problema. Algunas causas comunes son:",
+    },
+    "wr_over_plan_intro": {
+        "en": "Next, it's a good idea to put together a plan for how you can lower your excess abdominal fat. Here is a list of a few common ways:",
+        "es": "Después, conviene elaborar un plan para reducir la grasa abdominal en exceso. Aquí tienes algunas formas comunes:",
+    },
+    "wr_over_close": {
+        "en": "Lifestyle changes are incredibly important at this stage in your health journey. Making changes to your diet and "
+            "emphasizing exercise are good ways to start. At the end of the day, seeing your primary care physician or a dietitian will "
+            "make fundamental differences in your journey. Take time to see a professional.",
+        "es": "Los cambios de estilo de vida son clave en esta etapa. Modificar tu dieta y dar prioridad al ejercicio es un buen comienzo. "
+            "Al final, acudir a tu médico de cabecera o a una dietista marcará la diferencia. Tómate el tiempo de consultar a un profesional.",
     },
 
     }
