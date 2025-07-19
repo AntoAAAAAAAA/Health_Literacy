@@ -38,10 +38,8 @@ prev_waistcm = results.get('waistcm')
 prev_waist_ht_in = results.get('waist_ht_in')
 prev_waist_ht_cm = results.get('waist_ht_cm')
 
-st.text('Before you begin, please take the time to convert your height and weight metrics. We highly recommend this' \
-'since most health metric calculations are done using the metric system instead of the commonly used imperial system in the ' \
-'United States. As such, we would like to help you by providing converters below that will do the hard work for you!')
 # --- Converters ---------------------------------------------------
+st.text(_("converter_explanation"))
 col1, col2 = st.columns(2, border=True)
 
 # • Weight (lb → kg)

@@ -1,291 +1,319 @@
 import streamlit as st
 from functions import _, get_results, ensure_defaults
-from fractions import Fraction
 
 ensure_defaults()
 results = get_results()
 
-st.title('Results')
-st.text('Use this page to interpret the results you inputted. Learn more about each category. ')
+# ── Header ───────────────────────────────────────────────────────────
+st.title(_("results_title"))
+st.text(_("results_intro"))
 st.divider()
 
-# --BMI---------------------------------------------------------------
-if results.get('bmi'):
-    bmi = results.get('bmi')
-    with st.expander(label='BMI'):
-        st.subheader(f"Your calculated BMI is {bmi}", divider='gray')
+# ── BMI ──────────────────────────────────────────────────────────────
+if results.get("bmi"):
+    bmi = results["bmi"]
+    with st.expander(_("bmi_expander_label")):
+        st.subheader(_("bmi_subheader").format(bmi=bmi), divider="gray")
 
         if bmi < 18.5:
-            st.error("Your BMI is considered UNDERWEIGHT.")
-            st.info('A normal BMI is between 18.5 and 25')
-            st.markdown("First off . . . Don't worry! Being underweight is not the end of the world." \
-            " BMI is not the perfect health metric in all cases and should not be used as the sole number to determine " \
-            "if you are healthy or not. There are lots of things that can track health, and BMI is just one of them." \
-            " Let's look a little further into what might be causing your low BMI and what you could do to help.")
-            st.markdown('First off, why is having a low BMI possibly dangerous? Well it increases your chances of:')
-            st.markdown('''
-            - Osteoporosis
-            -	More sick frequently
-            -	Fatigue
-            -	Anemia
-            -	Irregular preiods and premature births in women
-            -	Slow or impaired growth 
-            ''')
-            st.markdown('Common causes of low BMI include:')
-            st.markdown('''
-            -   Family history 
-            -	High metabolism
-            -	Frequent physical activity (frequent runner, athlete, etc.)
-            -	Potential physical illness or chronic diseases 
-            -	Mental illness 
-            -	Possible Eating disorder (**Very important to see a doctor if you think you have this**)
-                        ''')
-            st.markdown('Thankfully, being underweight is not uncommon. There are lots of ' \
-            'easy, doable ways to help bring up your BMI! Some ways include:')
-            st.markdown('''
-            -	High protein and whole-grain snacks (carbs! carbs! carbs!)
-                -   Peanut butter crackers, protein bars, trail mix, pita chips with hummus, a handful of almonds 
-            -	Eat several small meals a day as opposed to a set number of big meals
-            -	Add toppings or additional food to current meals
-                -   Ex. adding nuts to yogurt, seeds to salad or soup, putting nut butter on whole-grain toast
-            -   Decreasing intense cardio workouts and shifting more towards weight-lifting
-            ''')
-            st.markdown("Finding out that you're underweight is a great start to figuring out what to do. Making changes to " \
-            "your diet and emphasizing weight training are good ways to start. At the end of the day, seeing your primary care " \
-            "physician or a dietician will make fundamental differences in your journey. Take time to see a professional. " \
-            "Good luck on your journey!")           
+            st.error(_("bmi_under_msg"))
+            st.info(_("bmi_normal_range"))
+            st.markdown(_("uw_para1"))
+            st.markdown(f"### {_('uw_risk_intro')}")
+            st.markdown(_("uw_risk_list"))
+            st.markdown(f"### {_('uw_causes_intro')}")
+            st.markdown(_("uw_causes_list"))
+            st.markdown(f"### {_('uw_actions_intro')}")
+            st.markdown(_("uw_actions_list"))
+            st.markdown(_("uw_closing"))
 
         elif 18.5 <= bmi <= 24.9:
-            st.warning("Your BMI is considered NORMAL")
+            st.success(_("bmi_normal_msg"))
 
-        def high_bmi_text():
-            st.markdown("First off . . . Don't worry! Being overweight is not the end of the world." \
-            " BMI is not the perfect health metric in all cases and should not be used as the sole number to determine " \
-            "if you are healthy or not. There are lots of things that can track health, and BMI is just one of them." \
-            " Let's look a little further into what might be causing your high BMI and what you could do to help.")
-            st.markdown('First off, why is having a high BMI possibly dangerous? Well it increases your chances of:')
-            st.markdown('''
-            - Heart Disease
-            - Type II diabetes
-            - High Blood Pressure
-            - Certain cancers 
-            - Liver Disease
-            - Breathing/Respiratory Issues
-            - Fertility Problems
-            - Mental Health Issues
-            ''')
-            st.markdown('Common causes of high BMI include:')
-            st.markdown('''
-            -	Lack of physical activity
-                -	Adults need 150 min of aerobic activity a week, Children need 60 minutes each day 
-                -	Muscle-strengthening activities (like lifting weights) is recommended for major muscles groups 2 or more days each week
-            -	Calorie excess (eating too many calories)
-                -	2000 calories is recommended per day. Anything above may be dangerous
-            -	Too much saturated fat
-                -	For a 2000 calorie day, no more than about 22g of saturated fats
-            -	Eating foods high in added sugar		
-            -	Bad-quality sleep
-                -	Consistently getting less than 7 hours of sleep is considered below recommended
-            -	Stress
-            -	Specific medical conditions (please see a doctor to determine this)
-            -	Genetics
-            -	Medications 
-                        ''')
-            st.markdown('Thankfully, being underweight is not uncommon. There are lots of ' \
-            'easy, doable ways to help bring up your BMI! Some ways include:')
-            st.markdown('''
-            -	Physical activity
-                -	Start playing a sport
-                -   Go on walks a few times a week (10 minutes is better than nothing)
-                -	Find long-form content you can watch/listen to while exercising or walking
-                -	Get a workout buddy
-                -	Start going to the gym (or start going more consistently/more frequently)
-            -	Start tracking calories using online applications (mobile applications are best)
-            -	Eat healthier (more fruits and vegetables, heart healthy meals)
-            -	Medication 
-            -	Surgery (last solution to consider. Need to see a doctor)
-            ''')
-            st.markdown("Finding out that you're overweight is a great start to figuring out what to do. Making changes to " \
-            "your diet and emphasizing exercise are good ways to start. At the end of the day, seeing your primary care " \
-            "physician or a dietician will make fundamental differences in your journey. Take time to see a professional. " \
-            "Good luck on your journey!")           
-            st.markdown('')
+        # Helper for BMI ≥ 25
+        def high_bmi_block():
+            st.markdown(_("ow_para1"))
+            st.markdown(f"### {_('ow_risk_intro')}")
+            st.markdown(_("ow_risk_list"))
+            st.markdown(f"### {_('ow_causes_intro')}")
+            st.markdown(_("ow_causes_list"))
+            st.markdown(f"### {_('ow_actions_intro')}")
+            st.markdown(_("ow_actions_list"))
+            st.markdown(_("ow_closing"))
+
         if 25 <= bmi <= 29.9:
-            st.success("Your BMI is considered OVERWEIGHT")
-            st.info('A normal BMI is between 18.5 and 25')
-            high_bmi_text()
+            st.success(_("bmi_over_msg"))
+            st.info(_("bmi_normal_range"))
+            high_bmi_block()
         elif 30 <= bmi <= 34.9:
-            st.error("Your BMI is considered Class I OBESE")
-            st.info('A normal BMI is between 18.5 and 25')
-            high_bmi_text()
+            st.error(_("bmi_ob1_msg"))
+            st.info(_("bmi_normal_range"))
+            high_bmi_block()
         elif 35 <= bmi <= 39.9:
-            st.error("Your BMI is considered Class II OBESE")
-            st.info('A normal BMI is between 18.5 and 25')
-            high_bmi_text()
+            st.error(_("bmi_ob2_msg"))
+            st.info(_("bmi_normal_range"))
+            high_bmi_block()
         elif bmi > 40:
-            st.error("Your BMI is considered Class III OBESE")
-            st.info('A normal BMI is between 18.5 and 25')
-            high_bmi_text()
+            st.error(_("bmi_ob3_msg"))
+            st.info(_("bmi_normal_range"))
+            high_bmi_block()
 else:
-    st.subheader('No BMI Input')
+    st.warning(_("no_bmi_input"))
 
-# --Blood Pressure-------------------------------------------------
-if results.get('bp'):
-    bp = results.get('bp')
-    sys = results.get('sys')
-    dias = results.get('dias')
-    with st.expander('Blood Pressure'):
-        st.subheader(f'Your blood pressure is {bp}', divider='gray')
+# ── Blood Pressure ───────────────────────────────────────────────────
+if results.get("bp"):
+    bp   = results["bp"]
+    sys  = results.get("sys")
+    dias = results.get("dias")
 
-        # Low BP
+    with st.expander(_("bp_expander_label")):
+        st.subheader(_("bp_subheader").format(bp=bp), divider="gray")
+
+        # Helper for high-BP explanations
+        def high_bp_details():
+            st.markdown(f"### {_('highbp_intro')}")
+            st.markdown(_("highbp_causes_list"))
+            st.markdown(f"### {_('highbp_complications_intro')}")
+            st.markdown(_("highbp_complications_list"))
+            st.markdown(f"### {_('highbp_risk_intro')}")
+            st.markdown(_("highbp_risk_list"))
+
         if sys < 90 and dias < 60:
-            st.error("Your blood pressure is LOW")
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            st.text("Having a consistently low blood pressure can be dangerous. You might be experiencing some of these symptoms:")
-            st.text('''
-            -	Blurred or fading vision
-            -	Dizzy or lightheaded feelings
-            -	Fainting
-            -	Fatigue
-            -	Trouble concentrating
-            -	Upset stomach
-            ''')
-            st.markdown('''
-            So what might be causing such a low blood pressure? A few things may be:
-             -	Pregnancy
-            -	Heart and heart valve conditions 
-            -	Hormone-related issues
-            -	Dehydration (very common)
-            -	Blood loss
-            -	Severe infection
-            -	Severe allergic reaction (anaphylaxis)
-            -	Lack of essential nutrients in diet 
-            -	Medications 
-            ''')
-            st.markdown('A few ways this can be treated is by:')
-            st.markdown('''
-            - Use more salt
-                - Salt helps raise blood pressure, but too much is dangerous. Talk to a doctor to determine amount
-            - Drink more water 
-            - Wear compression stockings
-                - Relieve pain and swelling in legs from varicose veins (if applicable)
-            - Medicines 
-                - Consult your doctor for medication recommendations 
-                - Midodrine (Orvaten) is a common medicine that could be prescribed
-            ''')
-        # Normal BP
+            st.error(_("bp_low_msg"))
+            st.info(_("bp_normal_range"))
+            st.markdown(f"### {_('lowbp_symptoms_intro')}")
+            st.markdown(_("lowbp_symptoms_list"))
+            st.markdown(f"### {_('lowbp_causes_intro')}")
+            st.markdown(_("lowbp_causes_list"))
+            st.markdown(f"### {_('lowbp_treat_intro')}")
+            st.markdown(_("lowbp_treat_list"))
+
         elif sys <= 120 and dias <= 80:
-            st.success('Your blood pressure is normal')
+            st.success(_("bp_normal_msg"))
 
-        # Elevated BP
         elif 120 < sys <= 129 and 60 <= dias < 80:
-            st.warning('Your blood pressure is ELEVATED')
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            st.text("Your blood pressure is a little elevated. Not to worry however, because this is completely normal. " \
-            "Its not uncommon to see a slightly elevated blood pressure. Elevated blood pressure can creep up over time though, " \
-            "raising your chances of heart failure, stroke, and other serious health problems. " \
-            "The upside is you’ve spotted it now, so you can start making steady changes to bring those numbers back into a healthy range.")
-            st.text('Some ways to lower your blood pressure:')
-            st.markdown('''
-            - Healthier diet
-                - Removing excess fats and salts 
-            - Exercise more frequently
-            - Limit alcohol and smoking
-            - Find ways to lower stress in your life
-            ''')
-            st.text('You are in a good spot. Knowing that your blood pressure is low before it gets into hypertensive levels ' \
-            'helps give you time to lower it naturally without serious medical intervention. Focusing on a heart-healthy diet, exercising ' \
-            'regularly, and tracking your blood pressure at home should be goals now. Good luck!')
+            st.warning(_("bp_elevated_msg"))
+            st.info(_("bp_normal_range"))
+            st.markdown(_("elevated_para"))
+            st.markdown(f"### {_('elevated_steps_intro')}")
+            st.markdown(_("elevated_steps_list"))
+            st.markdown(_("elevated_closing"))
 
-        def high_bp():
-            st.text('Your blood pressure is quite high and needs to be lowered. Lets look at some of the main causes of a ' \
-            'high blood pressure:')
-            st.markdown('''
-            -	**Primary hypertension**: No identifiable cause. A general increase over the years due to gradual buildup of plaque in the arteries. Expected with age
-            -	**Secondary hypertension**: There is some sort of underlying condition
-                -	Adrenal gland tumors
-                -	Blood vessel problems present at birth (ex. congenital heart defects)
-                -	Cough and cold medicines, pain relievers, birth control pills, or other prescription drugs
-                -	Illegal drugs (ex. amphetamines)
-                -	Kidney disease
-                -	Obstructive sleep apnea 
-                -	Thyroid problems 
-            -	**White coat hypertension**: A high blood pressure that only occurs in clinical settings (ex. doctors offices). This is 
-                        usually causes by the stress of going to a doctor, and not something health-related.
-            ''')
-            st.markdown('''
-            If left untreated, high blood pressure can possibly lead to:
-            -	Heart problems
-            -	Aneurysm
-            -	Kidney problems
-            -	Metabolic syndrome
-            -	Dementia 
-            -	Changes in memory or understanding 
-                        
-            Some things that can increase your risk of having high blood pressure include:
-            -	Age
-            -	Sex (more common in men)
-            -	Family history
-            -	Race (most common in African Americans)
-            -	Obesity or being overweight
-            -	Lack of exercise
-            -	Tobacco use or vaping
-            -	Too much salt
-            -	Low potassium
-            -	Too much alcohol
-            -	Stress
-            -	Pregnancy
-            ''')
-        
-        if 130 <= sys <= 139 and 80 < dias < 89:
-            st.error('Your blood pressure shows that you are in STAGE 1 HYPERTENSION')
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            high_bp()
-            st.text('There is such thing as Stage II hypertension as well. Right now, you are in Stage I. This means ' \
-            'that your blood pressure can be controlled with a change in lifestyle and that you are not in immediate ' \
-            'need of medication. Once your hypertension goes past a certain point, you will be recommended medication to help control it. As such, ' \
-            'please take precaution and continue to care for your blood pressure.')
+        elif 130 <= sys <= 139 and 80 < dias < 89:
+            st.error(_("bp_stage1_msg"))
+            st.info(_("bp_normal_range"))
+            high_bp_details()
+            st.markdown(_("stage1_para"))
 
         elif sys >= 140 and dias >= 90:
-            st.error('Your blood pressure shows that you are in STAGE 2 HYPERTENSION')
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            high_bp()
-            st.text('As someone in Stage II Hypertension, it is important to note that you need to see a healthcare professional ' \
-            'immediately to help control your blood pressure. Your provider will most likey help you by providing prescription ' \
-            'medications. With increased exercise, a controlled diet, and some medicine, hopefully you can lower your blood ' \
-            'pressure back to a safe range.')
+            st.error(_("bp_stage2_msg"))
+            st.info(_("bp_normal_range"))
+            high_bp_details()
+            st.markdown(_("stage2_para"))
 
-        elif sys >=180 or dias >= 120:
-            st.error('HYPERTENSIVE CRISIS: PLEASE CONSULT A DOCTOR IMMEDIATELY')
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            st.text('Your blood pressure is dangerously high. Please see a healthcare professional immediately!')
+        elif sys >= 180 or dias >= 120:
+            st.error(_("bp_crisis_msg"))
+            st.info(_("bp_normal_range"))
+            st.markdown(_("crisis_para"))
 
         elif sys > dias:
-            st.error('Isolated Systolic Hypertension')
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            high_bp()
+            st.error(_("bp_iso_sys_msg"))
+            st.info(_("bp_normal_range"))
+            high_bp_details()
 
         elif sys < dias:
-            st.error('Isolated Diastolic Hypertension')
-            st.info('A normal blood pressure is between 90/60 and 120/80')
-            high_bp()
+            st.error(_("bp_iso_dia_msg"))
+            st.info(_("bp_normal_range"))
+            high_bp_details()
 
 else:
-    st.subheader('No Blood Pressure input')
+    st.warning(_("no_bp_input"))
 
-#--Blood Glucose-------------------------------------------------
-if results.get('bg'):
-    with st.container(border=True):
-        st.text('Blood Glucose')
+# ── Blood Glucose placeholder ────────────────────────────────────────
+# if results.get("bg"):
+#     bg = results.get("bg")
+#     with st.expander(_("bg_placeholder")):
+#         st.subheader(_("bmi_subheader").replace("BMI", "blood glucose").format(bmi=bg), divider="gray")
+
+#         if bg < 70:
+#             st.error("Your blood sugar is LOW")
+#             st.info('A normal blood sugar is between 70 to 99 mg/dL')
+#             st.text("A low blood sugar can be dangerous. If you have low blood glucose, you may experience:")
+#             st.markdown('''
+#             -	Feeling shaky
+#             -	Being nervous or anxious
+#             -	Sweating, chills, and clamminess
+#             -	Irritability or impatience
+#             -	Confusion
+#             -	Fast heartbeat
+#             -	Feeling lightheaded or dizzy
+#             -	Hunger
+#             -	Nausea
+#             -	Color draining from the skin (pallor)
+#             -	Feeling sleepy
+#             -	Feeling weak or having no energy
+#             -	Blurred/impaired vision
+#             -	Tingling or numbness in the lips, tongue, or cheeks
+#             -	Headaches
+#             -	Coordination problems or clumsiness
+#             -	Nightmares or crying out during sleep
+#             ''')
+#             st.markdown('You might wonder why you blood sugar is lower than normal. Here are a few reasons why it might be: ')
+#             st.markdown('''
+#             -	Diabetes
+#             -	Issues with adrenal glands
+#             -	Pancreas problems
+#             -	Hyperthyroidism
+#             -	Significant stress (trauma or surgery)
+#             -	Certain medications, especially corticosteroids
+#             ''')
+#             st.markdown('Now that you are aware of your low blood sugar, beginning treatment for it is necessary. ' \
+#             'Untreated low blood sugar is very dangerous and can lead to a variety of other problematic health issues. ' \
+#             'So what can you do to treat it?: ')
+#             st.markdown('''
+#             -	15/15 rule – 15 g of fast acting carbs every 15 minutes to treat low blood sugar
+#                 -	Fast acting carbs include: glucose tablets, glucose gel tube, ½ cup (4 ounces) of juice or regular soda, 1 tablespoon of sugar or corn syrup, or honey, hard candy, jellybeans 
+#                 -	note: Foods like chocolate or peanut butter are NOT the best choice 
+#             -	Consult a doctor (they may prescribe medications or give injectable glucagon)
+#             ''')
+#             st.markdown("Low blood sugar is very common among diabetics. Ask your doctor to find more ways to manage low blood sugar. It is " \
+#             "good practice to keep a blood sugar monitor with you at home to track you blood sugar. Eating a healthy, carb-loaded diet and " \
+#             "possibly taking medication are both common ways of managing low blood sugar. Be patient with yourself, talk to your healthcare provider, " \
+#             "and follow a treatment plan to help hopefully bring your blood sugar back up.")
+
+#         elif 70 <= bg <= 99:
+#             st.success("Your blood sugar is normal")
+#             st.info('A normal blood sugar is between 70 to 99 mg/dL')
+#         elif 100 <= bg <= 125:
+#             st.error("Your blood sugar shows that you are PRE-DIABETIC")
+#             st.info('A normal blood sugar is between 70 to 99 mg/dL')
+#             st.text("A slightly elevated blood sugar like yours indicates that you are on the path to being diabetic. Currently, your " \
+#             "blood sugar is within a range that can hopefully be brought down with lifestyle changes and minimal medical intervention. Let's " \
+#             "first look at what some common symptoms are for pre-diabetes. ")
+#             st.markdown('''
+#             Prediabetes actually doesn't usually have any signs of symptoms associated with it. 
+#             However, one possible sign is darkedn skin on cetain parts of the body. Affected areas can include the neck, armpits and groin. 
+#             ''')
+#             st.markdown("Some common causes of pre-diabetes include: ")
+#             st.markdown('''
+#             -	Issue with insulin in your body
+#             -	Family history and genetics plays an important role 
+#             ''')
+#             st.text('What are some good ways to treat pre-diabetes? Here are a few: ')
+#             st.markdown('''
+#             -	Eating healthy foods
+#             -	Getting active
+#             -	Losing excess weight
+#             -	Controlling your blood pressure and cholesterol
+#             -	Not smoking
+#             ''')
+#             st.text('It is important to recognize that being pre-diabetes is something that can be managed with pure lifestyle changes. ' \
+#             'Making changes to your diet, improving physical activity, and consulting a doctor for management are all great ways to prevent ' \
+#             'your blood sugar from increasing into diabetic ranges.')
+
+
+#         elif bg >= 126:
+#             st.error("Your blood sugar shows that you are DIABETIC")
+#             st.info('A normal blood sugar is between 70 to 99 mg/dL')
+#             st.text('Your blood sugar is high enough that you are considered a diabetic. Not to worry however. Diabetes is ' \
+#             'something that has been studied and treated for decades. This means there are plenty of resources (including your ' \
+#             'primary care physician) that can help you manage your blood sugar and help you live a healthy life. First, lets start with ' \
+#             'some common symptoms that you might be experiencing as a result of your high blood sugar: ')
+#             st.markdown('''
+#             -	Urinating large amounts
+#             -	Excessive thirst
+#             -	Feeling tired
+#             -	Frequent hunger
+#             -	Dry mouth
+#             -	Weight loss
+#             -	Blurred vision
+#             -	Recurrent infections (e.g., urinary infections, skin infections)
+#             -	Wounds (cuts, scrapes) that heal slowly
+#             ''')
+#             st.text('Experiencing any of the above symptoms is totally normal. So now lets get into what might be causing your ' \
+#             'blood sugar to stay at such high levels. Here are a few common causes: ')
+#             st.markdown('''
+#             -	Eating too many carbohydrates
+#             -	Not exercising enough
+#             -	Not taking enough insulin medication (for type 1 diabetes) or other medications that regulate blood glucose levels
+#             -	Medications such as corticosteroids, thiazide diuretics, beta-blockers, and antipsychotics
+#             -	Certain conditions that affect the pancreas, which produces insulin
+#             -	Medical conditions that can cause insulin resistance, such as Cushing’s syndrome and acromegaly
+#             -	Pregnancy
+#             -	Stress
+#             ''')
+#             st.text("Now that you are aware of your high blood sugar, let's get to some treatment options that you have " \
+#             "at your disposal: ")
+#             st.markdown('''
+#             -	Insulin
+#                 - For people with type 1 diabetes, insulin is the main treatment for hyperglycemia. In some cases, it may also be used to treat people with type 2 diabetes.
+#             -	Glucose-lowering medications
+#                 - Various drugs such as metformin may be used to lower blood glucose levels.
+#             -	Glucose monitoring
+#                 - People with diabetes should monitor their blood glucose levels as instructed by their doctor.
+#             -	Lifestyle changes
+#                 - People with diabetes can reduce the risk of developing hyperglycemia or treat existing hyperglycemia by getting regular exercise, following a nutritious diet, and maintaining a healthy weight.                 
+#             ''')
+#             st.text("Diabetes is a common condition across the world. Don't feel alone in your diagnosis. Always be sure that you are using " \
+#             "an approved blood sugar monitor to track you blood sugar and keep in contact with you healthcare provider to help manage your " \
+#             "symptoms. Having diabetes doesn't mean your life is forever changed. Lots of diabetics live normal, happy lives while being " \
+#             "able to maintain their blood sugar. The most important step in your treatment is seeing a doctor and putting together a plan " \
+#             "that works with your life. Personalized treatment plans are the hallmark of effective diabetes treatment.")
+# else:
+#     st.warning(_("no_bg_input"))
+
+# ── Blood Glucose ────────────────────────────────────────────────────
+if results.get("bg"):
+    bg = results["bg"]
+    with st.expander(_("bg_placeholder")):
+        st.subheader(_("bg_subheader").format(bg=bg), divider="gray")
+
+        if bg < 70:
+            st.error(_("bg_low_msg"))
+            st.info(_("bg_normal_range"))
+            st.markdown(_("bg_low_para1"))
+            st.markdown(_("bg_low_symptoms"))
+            st.markdown(_("bg_low_causes_intro"))
+            st.markdown(_("bg_low_causes"))
+            st.markdown(_("bg_low_treat_intro"))
+            st.markdown(_("bg_low_treat"))
+            st.markdown(_("bg_low_close"))
+
+        elif 70 <= bg <= 99:
+            st.success(_("bg_normal_msg"))
+            st.info(_("bg_normal_range"))
+
+        elif 100 <= bg <= 125:
+            st.error(_("bg_pre_msg"))
+            st.info(_("bg_normal_range"))
+            st.markdown(_("bg_pre_para1"))
+            st.markdown(_("bg_pre_symptom_note"))
+            st.markdown(_("bg_pre_causes_intro"))
+            st.markdown(_("bg_pre_causes"))
+            st.markdown(_("bg_pre_treat_intro"))
+            st.markdown(_("bg_pre_treat"))
+            st.markdown(_("bg_pre_close"))
+
+        elif bg >= 126:
+            st.error(_("bg_diab_msg"))
+            st.info(_("bg_normal_range"))
+            st.markdown(_("bg_diab_para1"))
+            st.markdown(_("bg_diab_symptoms"))
+            st.markdown(_("bg_diab_causes_intro"))
+            st.markdown(_("bg_diab_causes"))
+            st.markdown(_("bg_diab_treat_intro"))
+            st.markdown(_("bg_diab_treat"))
+            st.markdown(_("bg_diab_close"))
 else:
-    st.subheader('***No Blood Glucose input***')
+    st.warning(_("no_bg_input"))
 
-#--Waist Ratio-------------------------------------------------
-if results.get('waist_ratio'):
-    with st.container(border=True):
-        st.text('Waist Ratio')
+
+# ── Waist Ratio placeholder ─────────────────────────────────────────-
+if results.get("waist_ratio"):
+    with st.expander(_("waist_ratio_placeholder")):
+        st.text("")
 else:
-    st.subheader('***No Waist Ratio input***')
+    st.warning(_("no_waist_input"))
 
-
+# Debug (remove in prod)
 st.text(results)
