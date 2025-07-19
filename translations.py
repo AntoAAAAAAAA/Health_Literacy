@@ -28,10 +28,7 @@ T = {
         "en": "See a list of sources we used:",
         "es": "Ver la lista de fuentes utilizadas:",
     },
-    "insert_sources_placeholder": {
-        "en": "**Insert sources here**",
-        "es": "**Inserte las fuentes aquí**",
-    },
+    
     "disclaimer": {
         "en": (
             "⚠️ **Disclaimer:** This tool is for general educational purposes only "
@@ -1082,7 +1079,7 @@ T = {
             "tratamiento eficaz."
         ),
     },
-    
+
     # -- Waist-to-Height Ratio ------------------------------------------------
     "wr_subheader": {
         "en": "Your waist ratio is {wr}",
