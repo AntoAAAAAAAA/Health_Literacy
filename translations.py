@@ -749,28 +749,28 @@ T = {
 
     # ---------- PLACEHOLDERS / FALLBACKS ------------------------------------
     "no_bmi_input": {
-        "en": "***No BMI Input***",
-        "es": "***Sin entrada de IMC***",
+        "en": "***Waiting for BMI Input...***",
+        "es": "***Esperando la entrada del IMC***",
     },
     "no_bp_input": {
-        "en": "***No Blood Pressure input***",
-        "es": "***Sin entrada de presión arterial***",
+        "en": "***Waiting for Blood Pressure Input...***",
+        "es": "***Esperando la entrada de presión arterial...***",
     },
     "bg_placeholder": {
         "en": "Blood Glucose",
         "es": "Glucosa en sangre",
     },
     "no_bg_input": {
-        "en": "***No Blood Glucose input***",
-        "es": "***Sin entrada de glucosa en sangre***",
+        "en": "***Waiting for Blood Glucose Input...***",
+        "es": "***Esperando la entrada de glucosa en sangre...***",
     },
     "waist_ratio_placeholder": {
         "en": "Waist Ratio",
         "es": "Relación cintura-altura",
     },
     "no_waist_input": {
-        "en": "***No Waist Ratio input***",
-        "es": "***Sin entrada de relación cintura-altura***",
+        "en": "***Waiting for Waist-to-Height Ratio Input...***",
+        "es": "***Esperando la entrada de la relación cintura-altura...***",
     },
 
 
