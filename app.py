@@ -16,6 +16,7 @@ st.session_state['lang'] = LANG_OPTS[label]
 home_page = st.Page('home_page.py', title='Home')
 input_pg = st.Page('input.py', title='Input')
 results_pg = st.Page('results.py', title='Results')
+reflection_pg = st.Page('reflection.py', title='Personal Reflections')
 
-pg = st.navigation([home_page, input_pg, results_pg])
+pg = st.navigation([home_page, input_pg, results_pg, reflection_pg])
 pg.run()
