@@ -29,6 +29,12 @@ with st.expander(_('sources_expander_label')):
     - Yale Medicine. (n.d.). Hyperglycemia: Symptoms, causes, and treatments. Yale Medicine. https://www.yalemedicine.org/conditions/hyperglycemia-symptoms-causes-treatments 
 ''')
 
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
+st.text(' ')
+
 st.markdown(
     f"""
 <div style="background-color:#f9f9f9; padding:1rem; border-left:5px solid #888888;
